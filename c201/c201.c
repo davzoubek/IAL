@@ -85,15 +85,12 @@ void List_Init( List *list ) {
  * @param list Ukazatel na inicializovanou strukturu jednosměrně vázaného seznamu
  **/
 void List_Dispose( List *list ) {
-	List *tmp = NULL;
-
-	while(list)
+	while(list->firstElement != NULL)
 	{
-		tmp = list->activeElement;
-		list->activeElement = list->activeElement->nextElement;
+		ListElementPtr tmp = list->firstElement;
+		list->firstElement = list->firstElement->nextElement;
 		free(tmp);
 	}
-	tmp = NULL;
 }
 
 /**
@@ -105,7 +102,7 @@ void List_Dispose( List *list ) {
  * @param data Hodnota k vložení na začátek seznamu
  */
 void List_InsertFirst( List *list, int data ) {
-	struct List *tmp = (struct List *) malloc(sizeof(struct List*));
+	ListElementPtr tmp = malloc(sizeof(struct ListElement));
 	if(tmp == NULL)
 	{
 		List_Error();
@@ -113,8 +110,8 @@ void List_InsertFirst( List *list, int data ) {
 	else
 	{
 		tmp->data = data;
-		tmp->activeElement->nextElement = tmp->firstElement;
-		tmp->firstElement = tmp;
+		tmp->nextElement = list->firstElement;
+		list->firstElement = tmp;
 	}
 }
 
