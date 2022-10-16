@@ -122,7 +122,7 @@ void List_InsertFirst( List *list, int data ) {
  * @param list Ukazatel na inicializovanou strukturu jednosměrně vázaného seznamu
  */
 void List_First( List *list ) {
-	list->firstElement = list->activeElement;
+	list->activeElement=list->firstElement;
 }
 
 /**
@@ -133,13 +133,13 @@ void List_First( List *list ) {
  * @param dataPtr Ukazatel na cílovou proměnnou
  */
 void List_GetFirst( List *list, int *dataPtr ) {
-	if(list == NULL)
+	if(list->firstElement == NULL)
 	{
 		List_Error();
 	}
 	else
 	{
-		dataPtr = list->firstElement;
+		*dataPtr = list->firstElement->data;
 	}
 }
 
