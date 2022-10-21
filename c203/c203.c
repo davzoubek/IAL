@@ -103,7 +103,7 @@ void Queue_Init( Queue *queue ) {
 	{
 		for(int i = 0; i < QUEUE_SIZE; i++)
 		{
-			queue->array[i] = "*";
+			queue->array[i] = '*';
 		}
 		queue->firstIndex = 0;
 		queue->freeIndex = 0;
