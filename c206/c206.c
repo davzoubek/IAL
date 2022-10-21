@@ -79,7 +79,9 @@ void DLL_Error() {
  * @param list Ukazatel na strukturu dvousměrně vázaného seznamu
  */
 void DLL_Init( DLList *list ) {
-	solved = FALSE; /* V případě řešení, smažte tento řádek! */
+	list->firstElement = NULL;
+	list->lastElement = NULL;
+	list->activeElement = NULL;
 }
 
 /**
