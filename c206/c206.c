@@ -292,6 +292,7 @@ void DLL_DeleteFirst( DLList *list ) {
  */
 void DLL_DeleteLast( DLList *list ) {
 	DLLElementPtr tmp;
+	tmp = list->lastElement;
 	if(list->firstElement == NULL)
 	{
 		return;
