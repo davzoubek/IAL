@@ -96,7 +96,7 @@ void Queue_Error( int error_code ) {
 void Queue_Init( Queue *queue ) {
 	if(queue == NULL)
 	{
-		Queue_Init(QERR_INIT);
+		Queue_Error(QERR_INIT);
 		return;
 	}
 	else
