@@ -45,6 +45,16 @@ void ht_init(ht_table_t *table) {
  * hodnotu NULL.
  */
 ht_item_t *ht_search(ht_table_t *table, char *key) {
+  for(int i = 0; i < HT_SIZE; i++)
+  {
+    if(*table[i] != NULL)
+    {
+      if((*table)[i]->key == key)
+      {
+        return *table[i];
+      }
+    }
+  }
   return NULL;
 }
 
@@ -57,6 +67,30 @@ ht_item_t *ht_search(ht_table_t *table, char *key) {
  * synonym zvoľte najefektívnejšiu možnosť a vložte prvok na začiatok zoznamu.
  */
 void ht_insert(ht_table_t *table, char *key, float value) {
+  ht_item_t *tmp;
+  tmp = ht_search(table, key);
+  if(tmp)
+  {
+    tmp->value = value;
+  }
+  else
+  {
+    ht_item_t *tmp2 = (ht_item_t*) malloc(sizeof(ht_item_t));
+    if(tmp2 == NULL)
+    {
+      return;
+    }
+    tmp2->value = value;
+    tmp2->next = NULL;
+    tmp2->key = key;
+    int HC = get_hash(key);
+    tmp = *table[HC];
+    if(*table[HC])
+    {
+      tmp2->next = tmp;
+    }
+    *table[HC] = tmp;
+  }
 }
 
 /*
@@ -68,7 +102,12 @@ void ht_insert(ht_table_t *table, char *key, float value) {
  * Pri implementácii využite funkciu ht_search.
  */
 float *ht_get(ht_table_t *table, char *key) {
-  return NULL;
+  ht_item_t *tmp = ht_search(table, key);
+  if(tmp == NULL)
+  {
+    return NULL;
+  }
+  return &(tmp->value);
 }
 
 /*
@@ -80,6 +119,33 @@ float *ht_get(ht_table_t *table, char *key) {
  * Pri implementácii NEVYUŽÍVAJTE funkciu ht_search.
  */
 void ht_delete(ht_table_t *table, char *key) {
+  int HC;
+  HC = get_hash(key);
+  if(*table[HC] != NULL)
+  {
+    ht_item_t *back;
+    ht_item_t *tmp = *table[HC];
+    if(tmp->key == key)
+    {
+      *table[HC] = tmp->next;
+      free(tmp);
+    }
+    else
+    {
+      while (tmp->next != NULL)
+      {
+        back = tmp;
+        tmp = tmp->next;
+        if(tmp->key == key)
+        {
+          back->next = tmp->next;
+          free(tmp);
+          break;
+        }
+      }
+      
+    }
+  }
 }
 
 /*
@@ -89,4 +155,21 @@ void ht_delete(ht_table_t *table, char *key) {
  * inicializácii.
  */
 void ht_delete_all(ht_table_t *table) {
+  ht_item_t *tmp;
+  ht_item_t *next_one;
+  for(int i = 0; i < HT_SIZE; i++)
+  {
+    if(*table[i] != NULL)
+    {
+      next_one = *table[i];
+      while (next_one->next != NULL)
+      {
+        tmp = next_one;
+        next_one = next_one->next;
+        free(tmp);
+      }
+      free(next_one);
+      *table[i] = NULL;
+    }
+  }
 }
