@@ -217,7 +217,7 @@ void bst_delete(bst_node_t **tree, char key) {
       {
         if((*tree)->key < key)
         {
-          if((*tree)->key != NULL)
+          if((*tree)->right != NULL)
           {
             bst_delete(&(*tree)->right, key);
             return;
@@ -229,7 +229,7 @@ void bst_delete(bst_node_t **tree, char key) {
         }
         else
         {
-          
+
         }
       }
     }
@@ -255,8 +255,8 @@ void bst_dispose(bst_node_t **tree) {
     bst_dispose(&(*tree)->right);
     bst_dispose(&(*tree)->left);
     free(*tree);
-    bst_init(*tree);
   }
+  *tree = NULL;
 }
 
 /*
