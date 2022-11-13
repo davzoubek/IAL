@@ -246,11 +246,11 @@ void bst_delete(bst_node_t **tree, char key) {
         {
           if(back->right == tmp)
           {
-            back->right == NULL;
+            back->right = NULL;
           }
           if(back->left == tmp)
           {
-            back->left == NULL;
+            back->left = NULL;
           }
           free(tmp);
           break;
