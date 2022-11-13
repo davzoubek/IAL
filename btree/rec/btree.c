@@ -40,35 +40,11 @@ bool bst_search(bst_node_t *tree, char key, int *value) {
     }
     else
     {
-      if(tree->key > key)
+      if(tree->key < key)
       {
-        if(tree->left != NULL)
-        {
-          bst_search(tree->left, key, value);
-        }
-        else
-        {
-          return false;
-        }
+        bst_search(tree->right, key, value);
       }
-      else
-      {
-        if(tree->key < key)
-        {
-          if(tree->right != NULL)
-          {
-            bst_search(tree->right, key, value);
-          }
-          else
-          {
-            return false;
-          }
-        }
-        else
-        {
-
-        }
-      }
+      
     }
   }
   else
