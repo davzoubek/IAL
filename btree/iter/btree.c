@@ -33,11 +33,7 @@ void bst_init(bst_node_t **tree) {
  * Funkciu implementujte iteratívne bez použitia vlastných pomocných funkcií.
  */
 bool bst_search(bst_node_t *tree, char key, int *value) {
-  if(tree == NULL)
-  {
-    return false;
-  }
-  else
+  if(tree != NULL)
   {
     while((tree->left != NULL) || (tree->right != NULL))
     {
@@ -59,6 +55,11 @@ bool bst_search(bst_node_t *tree, char key, int *value) {
       }
     }
   }
+  else
+  {
+
+  }
+  return false;
 }
 
 /*
