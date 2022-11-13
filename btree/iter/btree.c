@@ -144,6 +144,9 @@ void bst_replace_by_rightmost(bst_node_t *target, bst_node_t **tree) {
   }
   target->value = (*tree)->value;
   target->key = (*tree)->key;
+  tmp = (*tree)->left;
+  free(*tree);
+  *tree = tmp;
 }
 
 /*
