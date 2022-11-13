@@ -434,7 +434,7 @@ void bst_postorder(bst_node_t *tree) {
   bst_leftmost_postorder(tmp, &stack, &stack2);
   while(!stack_bst_empty(&stack))
   {
-    tmp = stack_bst_empty(&stack);
+    tmp = stack_bst_top(&stack);
     stack_bst_pop(&stack);
     tmp_boolean = stack_bool_pop(&stack2);
     if(tmp_boolean)
